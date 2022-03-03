@@ -1,0 +1,37 @@
+{
+    "scripts": {
+        "build": "node index.js",
+        "test": "ava"
+    },
+    "type": "module",
+    "exports": "./index.js",
+    "dependencies": {
+        "axios": "^0.26.0",
+        "fs-extra": "^10.0.1",
+        "git-clone": "^0.2.0",
+        "php-server": "^1.0.0"
+    },
+    "devDependencies": {
+        "ava": "^4.0.1"
+    },
+    "name": "php_static",
+    "description": "```yml",
+    "version": "1.0.1",
+    "main": "index.js",
+    "directories": {
+        "test": "test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/chet-cloud/php_static.git"
+    },
+    "keywords": [
+        "static"
+    ],
+    "author": "Chet-cloud",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/chet-cloud/php_static/issues"
+    },
+    "homepage": "https://github.com/chet-cloud/php_static#readme"
+}
