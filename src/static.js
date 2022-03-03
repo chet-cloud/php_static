@@ -44,16 +44,20 @@ export default async({ files, remoteUrl, requestCallback, saveCallback, github }
     console.log(`================================ Begin to fetch pages ================================`)
 
     return Promise.all([...requests])
-        .then((results) => {
+        .then(async(results) => {
             results.forEach((response, index) => {
                 if (saveCallback instanceof Function) {
                     const { data, file } = saveCallback(response.data, files[index])
-                    fileManager.savePhp(data, file).then(() => {
+                    awaitfileManager.savePhp(data, file).then(() => {
                         console.log(`${response.request.res.responseUrl} : ok`)
+                    }).catch((e) => {
+                        console.log("")
                     })
                 } else {
                     fileManager.savePhp(response.data, files[index]).then(() => {
                         console.log(`${response.request.res.responseUrl} : ok`)
+                    }).catch((e) => {
+                        console.log("")
                     })
                 }
             })
@@ -62,7 +66,7 @@ export default async({ files, remoteUrl, requestCallback, saveCallback, github }
             if (result.config && result.response && result.response.status) {
                 console.error(result.config.url + " : " + result.response.status)
             }
-            //throw result
+            return result
         }).finally(() => {
             console.log(`================================ fetch pages finished ================================`)
             stop()

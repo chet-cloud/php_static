@@ -69,17 +69,22 @@ test('generateURLs', t => {
 
 
 test('generate static website', async t => {
+    process.env.BASE_PHP_PATH = "" //set local build
     try {
+        // const error = await t.throwsAsync(() => {
         await staticky({
-            files: [
-                "/test/404.php",
-                "/test/index.php"
-            ],
-            remoteUrl: "",
-            github: "https://github.com/chet-cloud/php_static.git"
-        })
+                files: [
+                    "/test/phps/404.php",
+                    "/test/phps/index.php"
+                ],
+                remoteUrl: "",
+                github: "https://github.com/chet-cloud/php_static.git"
+            })
+            // });
+            // t.assert(error === undefined)
         t.pass()
     } catch (e) {
         t.fail()
     }
+
 })

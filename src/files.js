@@ -81,15 +81,15 @@ export const save = (content, file, outDir) => {
 
 
 const isSetRemoteUrl = (remoteUrl) => {
-    return (typeof remoteUrl === "string" && remoteUrl.startsWith("http") )
+    return (typeof remoteUrl === "string" && remoteUrl.startsWith("http"))
 }
 
 const isBuildByGithubAction = () => {
-    return !(process.env.BASE_PHP_PATH === undefined)
+    return !(process.env.BASE_PHP_PATH === undefined || process.env.BASE_PHP_PATH.trim() === "")
 }
 
 
-export const needPhpServer  = (remoteUrl) => (!isBuildByGithubAction() && !isSetRemoteUrl(remoteUrl))
+export const needPhpServer = (remoteUrl) => (!isBuildByGithubAction() && !isSetRemoteUrl(remoteUrl))
 
 
 export const generateURLs = (files, remoteUrl, requestCallback) => {
@@ -121,16 +121,12 @@ export const generateURLs = (files, remoteUrl, requestCallback) => {
 
 
 
-export const FileManager = async function (fromDir, outDir) {
+export const FileManager = async function(fromDir, outDir) {
     await copy(fromDir, outDir)
     return {
         savePhp: (content, file) => save(content, file, outDir),
-        requestURLs: (files,remoteURL,requestCallback) => {
-            return generateURLs(files, remoteURL,requestCallback)
+        requestURLs: (files, remoteURL, requestCallback) => {
+            return generateURLs(files, remoteURL, requestCallback)
         }
     }
 }
-
-
-
-
