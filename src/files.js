@@ -72,7 +72,13 @@ export const save = (content, file, outDir) => {
     if (isPhp(file)) {
         const newDir = getPath(file, outDir)
         return fs.ensureDir(newDir).then(() => {
-            return fs.outputFile(`${newDir}/index.html`, content)
+            const newFile = `${newDir}/index.html`
+            if (fs.pathExistsSync(newFile)) {
+                console.log(`html file ${newFile} exist, skip generating fetching html`)
+                return new Promise.resolve()
+            } else {
+                return fs.outputFile(`${newDir}/index.html`, content)
+            }
         })
     } else {
         return new Promise.resolve()
